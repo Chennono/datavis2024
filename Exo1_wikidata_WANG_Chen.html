@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 01 - wikidata et rawgraphs</title>
+</head>
+<body>
+    <h1>Exercice no. 01</h1>
+    <h2>Ligne de temps faite avec Wikidata</h2>
+    <p>Cette <em>graphique de dimensions </em> montre les 100 premiers pays du monde en termes de population.</p>
+    <p>La requête est :</p>
+    <p>
+        <code>
+            <pre>
+                #defaultView:Dimensions
+                SELECT ?country ?population ?gdp ?countryLabel ?continent ?continentLabel WHERE {
+                    ?country wdt:P31 wd:Q3624078;
+                    wdt:P1082 ?population;
+                    wdt:P2131 ?gdp.
+                    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+                    OPTIONAL { ?country wdt:P30 ?continent. }
+                }
+                ORDER BY DESC (?population)
+                LIMIT 100
+            </pre>
+        </code>
+    </p>
+    <iframe style="width: 80vw; height: 50vh; border: none;" src="https://query.wikidata.org/embed.html#%23defaultView%3ADimensions%0ASELECT%20%3Fcountry%20%3Fpopulation%20%3Fgdp%20%3FcountryLabel%20%3Fcontinent%20%3FcontinentLabel%20WHERE%20%7B%0A%20%20%3Fcountry%20wdt%3AP31%20wd%3AQ3624078%3B%0A%20%20%20%20wdt%3AP1082%20%3Fpopulation%3B%0A%20%20%20%20wdt%3AP2131%20%3Fgdp.%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%20%20OPTIONAL%20%7B%20%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fcountry%20wdt%3AP30%20%3Fcontinent.%20%7D%0A%7D%0AORDER%20BY%20DESC%20(%3Fpopulation)%0ALIMIT%20100" referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+    <hr>
+
+    <h2>Circle packing fait avec RAWGraphs</h2>
+
+    <p>Cette représentation</p>
+
+    <div>
+        <a href="population_pays_top100.svg"><img src="population_pays_top100.svg" alt="Circle Packing" width="500"></a>
+    </div>
+
+    <p>Code de la requête en SPARQL Wikidata :</p>
+    <p>
+        <code>
+            <pre>
+                SELECT ?country ?population ?gdp ?countryLabel ?continent ?continentLabel WHERE {
+                    ?country wdt:P31 wd:Q3624078;
+                    wdt:P1082 ?population;
+                    wdt:P2131 ?gdp.
+                    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+                    OPTIONAL { ?country wdt:P30 ?continent. }
+                }
+                ORDER BY DESC (?population)
+                LIMIT 100
+            </pre>
+        </code>
+    </p>
+
+    <p>Lien de la requête : <a href="https://w.wiki/8rDD">https://w.wiki/8rDD</a></p>
+
+</body>
+</html>
